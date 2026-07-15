@@ -161,44 +161,7 @@
     reveals.forEach((n) => n.classList.add("in"));
   }
 
-  /* ---------- 9. Install hint ---------- */
-  const banner = $("#installBanner");
-  const isStandalone =
-    window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
-  let dismissed = false;
-  try { dismissed = localStorage.getItem("vtaper-install-dismissed") === "1"; } catch (e) {}
-
-  let deferredPrompt = null;
-  window.addEventListener("beforeinstallprompt", (e) => {
-    e.preventDefault();
-    deferredPrompt = e; // Chrome/Android/desktop
-    if (!isStandalone && !dismissed) banner.hidden = false;
-  });
-
-  // iOS Safari has no beforeinstallprompt — show the hint anyway.
-  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
-  if (isIOS && !isStandalone && !dismissed) {
-    setTimeout(() => (banner.hidden = false), 1200);
-  }
-
-  $("#installBtn").addEventListener("click", async () => {
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-      await deferredPrompt.userChoice;
-      deferredPrompt = null;
-      banner.hidden = true;
-    } else {
-      alert(
-        "To install:\n\niPhone (Safari): tap the Share button, then “Add to Home Screen.”\n\nAndroid (Chrome): open the ⋮ menu, then “Install app.”"
-      );
-    }
-  });
-  $("#installClose").addEventListener("click", () => {
-    banner.hidden = true;
-    try { localStorage.setItem("vtaper-install-dismissed", "1"); } catch (e) {}
-  });
-
-  /* ---------- 10. Service worker (offline) ---------- */
+  /* ---------- 9. Service worker (offline) ---------- */
   if ("serviceWorker" in navigator) {
     // If the page was already controlled by a worker at load time, a change of
     // controller means a new version activated — reload once to pick it up.

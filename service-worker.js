@@ -5,7 +5,7 @@
    Paths are RELATIVE so this works under any GitHub Pages sub-path.
    =========================================================== */
 
-const CACHE_VERSION = "vtaper-v2";
+const CACHE_VERSION = "vtaper-v3";
 
 // Critical app shell — install fails if any of these can't be cached.
 const CORE_ASSETS = [

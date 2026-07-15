@@ -202,26 +202,7 @@ h1 .dot { color: var(--red); }
 
 footer { margin-top: 34px; font-size: 11px; color: var(--ink-soft); letter-spacing: 0.06em; text-transform: uppercase; text-align: center; }
 
-/* ---------- install banner ---------- */
-.install-banner {
-  position: fixed; left: 12px; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom));
-  max-width: 616px; margin: 0 auto; z-index: 30;
-  background: var(--ink); color: var(--chalk);
-  border-radius: 14px; padding: 12px 14px;
-  display: flex; align-items: center; gap: 10px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
-  animation: slideUp 0.35s ease both;
-}
-.install-banner p { font-size: 13px; flex: 1; }
-.install-banner button {
-  border: none; cursor: pointer; font-family: inherit; font-weight: 700;
-  border-radius: 8px; padding: 8px 12px; font-size: 13px;
-  background: var(--red); color: #fff;
-}
-.install-banner button#installClose { background: transparent; color: var(--chalk); padding: 8px; font-size: 15px; }
-
 /* ---------- animations (lightweight) ---------- */
-@keyframes slideUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 
 /* Only hide content for the reveal animation when JS is present to reveal it
