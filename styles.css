@@ -1,0 +1,247 @@
+/* ===========================================================
+   V-Taper Program — styles.css
+   Mobile-first, responsive, dark-mode aware.
+   Colour comes only from CSS variables so theming is one switch.
+   =========================================================== */
+
+:root {
+  color-scheme: light;
+  --chalk: #F6F5F1;
+  --ink: #101113;
+  --ink-soft: #4A4B4F;
+  --line: #DDDBD4;
+  --card: #FFFFFF;
+  --red: #D93A2B;
+  --nav-bg: rgba(246, 245, 241, 0.92);
+  --shadow: 0 1px 2px rgba(16, 17, 19, 0.04);
+}
+
+/* Dark palette, shared by the explicit toggle and the no-JS system fallback. */
+:root[data-theme="dark"],
+:root[data-theme="dark"] .theme-icon {
+  color-scheme: dark;
+}
+:root[data-theme="dark"] {
+  --chalk: #0E0F11;
+  --ink: #F4F3EF;
+  --ink-soft: #9A9B9F;
+  --line: #26282C;
+  --card: #17191C;
+  --red: #FF5646;
+  --nav-bg: rgba(14, 15, 17, 0.92);
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+/* If JavaScript is disabled the inline theme script never runs, so honour the
+   OS preference here as a fallback (data-theme is absent in that case). */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    color-scheme: dark;
+    --chalk: #0E0F11;
+    --ink: #F4F3EF;
+    --ink-soft: #9A9B9F;
+    --line: #26282C;
+    --card: #17191C;
+    --red: #FF5646;
+    --nav-bg: rgba(14, 15, 17, 0.92);
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  }
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  background: var(--chalk);
+  color: var(--ink);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 15px;
+  line-height: 1.45;
+  padding-bottom: calc(60px + env(safe-area-inset-bottom));
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.wrap { max-width: 640px; margin: 0 auto; padding: 0 16px; }
+.wrap { padding-left: max(16px, env(safe-area-inset-left)); padding-right: max(16px, env(safe-area-inset-right)); }
+
+.skip-link {
+  position: absolute; left: -999px; top: 0;
+  background: var(--ink); color: var(--chalk);
+  padding: 10px 16px; z-index: 100; border-radius: 0 0 8px 0;
+}
+.skip-link:focus { left: 0; }
+
+/* ---------- hero ---------- */
+.hero { padding: calc(30px + env(safe-area-inset-top)) 0 10px; }
+.hero-top { display: flex; justify-content: space-between; align-items: flex-start; }
+
+.kicker {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--red); margin-bottom: 12px; padding-top: 4px;
+}
+
+h1 {
+  font-family: 'Anton', Impact, sans-serif; font-weight: 400;
+  font-size: clamp(42px, 11vw, 64px); line-height: 0.95;
+  letter-spacing: 0.01em; text-transform: uppercase;
+}
+h1 .dot { color: var(--red); }
+
+.hero-sub { margin-top: 12px; color: var(--ink-soft); font-size: 14px; max-width: 46ch; }
+
+.theme-toggle {
+  flex: 0 0 auto; width: 40px; height: 40px; border-radius: 50%;
+  border: 1.5px solid var(--line); background: var(--card);
+  cursor: pointer; display: grid; place-items: center; box-shadow: var(--shadow);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.theme-toggle:active { transform: scale(0.92); }
+.theme-icon { width: 18px; height: 18px; display: block; position: relative; }
+/* sun (light mode shows this) */
+.theme-icon::before {
+  content: ""; position: absolute; inset: 0; border-radius: 50%;
+  background: var(--ink); box-shadow: 0 0 0 2px var(--card), 0 0 0 3.5px var(--ink);
+  transform: scale(0.55);
+}
+:root[data-theme="dark"] .theme-icon::before {
+  /* moon */
+  background: transparent; box-shadow: inset -5px 2px 0 0 var(--ink);
+  transform: scale(0.8) rotate(-20deg);
+}
+
+/* ---------- sticky day nav ---------- */
+.daynav {
+  position: sticky; top: 0; z-index: 10;
+  background: var(--nav-bg);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line); margin-top: 18px;
+}
+.navrow {
+  display: flex; gap: 8px; overflow-x: auto;
+  padding: 10px 16px; max-width: 640px; margin: 0 auto;
+  scrollbar-width: none; -webkit-overflow-scrolling: touch;
+}
+.navrow::-webkit-scrollbar { display: none; }
+
+.chip {
+  flex: 0 0 auto; font-size: 12px; font-weight: 700; letter-spacing: 0.04em;
+  padding: 7px 13px; border: 1.5px solid var(--ink); border-radius: 999px;
+  color: var(--ink); text-decoration: none; text-transform: uppercase;
+  background: transparent; transition: background-color 0.15s ease, color 0.15s ease;
+}
+.chip:hover { background: var(--ink); color: var(--chalk); }
+.chip.active { background: var(--red); border-color: var(--red); color: #fff; }
+
+/* ---------- day card ---------- */
+.day { padding-top: 26px; scroll-margin-top: 60px; }
+.dayhead { display: flex; align-items: baseline; gap: 12px; margin-bottom: 2px; }
+.daynum {
+  font-family: 'Anton', Impact, sans-serif; font-size: 15px;
+  color: var(--red); letter-spacing: 0.08em;
+}
+.dayname {
+  font-family: 'Anton', Impact, sans-serif; font-weight: 400;
+  font-size: clamp(30px, 8vw, 40px); text-transform: uppercase; line-height: 1;
+}
+.focus { color: var(--ink-soft); font-size: 13px; margin: 6px 0 14px; }
+.focus b { color: var(--ink); }
+
+.card {
+  background: var(--card); border: 1px solid var(--line);
+  border-radius: 14px; overflow: hidden; box-shadow: var(--shadow);
+}
+
+.ex {
+  display: grid; grid-template-columns: 1fr auto; gap: 2px 12px;
+  padding: 13px 14px; border-bottom: 1px solid var(--line); position: relative;
+}
+.ex:last-child { border-bottom: none; }
+.exname { font-weight: 600; font-size: 15px; }
+.exnote { grid-column: 1 / -1; color: var(--ink-soft); font-size: 12.5px; margin-top: 1px; }
+
+.scheme {
+  font-family: 'Anton', Impact, sans-serif; font-size: 16px; letter-spacing: 0.03em;
+  white-space: nowrap; color: var(--ink); align-self: start; padding-top: 1px; text-align: right;
+}
+.scheme small {
+  font-family: 'Inter', sans-serif; font-size: 10.5px; font-weight: 600;
+  color: var(--ink-soft); display: block; text-align: right; letter-spacing: 0.05em;
+}
+
+/* superset — the signature marker */
+.ex.ss { border-left: 4px solid var(--red); }
+.tag {
+  font-size: 9px; font-weight: 700; letter-spacing: 0.12em; color: var(--red);
+  margin-left: 8px; vertical-align: 2px;
+}
+
+/* ---------- schedule strip ---------- */
+.sched { padding-top: 30px; }
+.sched h2, .rules h2 {
+  font-family: 'Anton', Impact, sans-serif; font-weight: 400; font-size: 26px;
+  text-transform: uppercase; margin-bottom: 12px;
+}
+.week { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+.wday {
+  border: 1px solid var(--line); border-radius: 10px; background: var(--card);
+  padding: 10px 4px; text-align: center; box-shadow: var(--shadow);
+}
+.wday .d { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; color: var(--ink-soft); text-transform: uppercase; }
+.wday .s { font-size: 11px; font-weight: 700; margin-top: 4px; }
+.wday.rest { opacity: 0.5; }
+.wday.rest .s { color: var(--ink-soft); }
+
+/* ---------- rules ---------- */
+.rules { margin-top: 40px; border-top: 3px solid var(--ink); padding-top: 18px; }
+.rule { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.rule:last-child { border-bottom: none; }
+.rule .n { font-family: 'Anton', Impact, sans-serif; color: var(--red); font-size: 16px; flex: 0 0 22px; padding-top: 1px; }
+.rule p { font-size: 13.5px; color: var(--ink-soft); }
+.rule p b { color: var(--ink); }
+
+footer { margin-top: 34px; font-size: 11px; color: var(--ink-soft); letter-spacing: 0.06em; text-transform: uppercase; text-align: center; }
+
+/* ---------- install banner ---------- */
+.install-banner {
+  position: fixed; left: 12px; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom));
+  max-width: 616px; margin: 0 auto; z-index: 30;
+  background: var(--ink); color: var(--chalk);
+  border-radius: 14px; padding: 12px 14px;
+  display: flex; align-items: center; gap: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+  animation: slideUp 0.35s ease both;
+}
+.install-banner p { font-size: 13px; flex: 1; }
+.install-banner button {
+  border: none; cursor: pointer; font-family: inherit; font-weight: 700;
+  border-radius: 8px; padding: 8px 12px; font-size: 13px;
+  background: var(--red); color: #fff;
+}
+.install-banner button#installClose { background: transparent; color: var(--chalk); padding: 8px; font-size: 15px; }
+
+/* ---------- animations (lightweight) ---------- */
+@keyframes slideUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Only hide content for the reveal animation when JS is present to reveal it
+   again — otherwise the page would stay blank if the script fails to load. */
+.js .reveal { opacity: 0; }
+.js .reveal.in { animation: fadeUp 0.5s ease both; }
+
+.noscript-msg { padding: 24px 0; color: var(--ink-soft); font-size: 14px; }
+
+/* ---------- larger screens ---------- */
+@media (min-width: 720px) {
+  body { font-size: 16px; }
+  .card:hover { border-color: var(--ink-soft); transition: border-color 0.2s ease; }
+}
+
+/* ---------- accessibility ---------- */
+:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; border-radius: 4px; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+  .js .reveal { opacity: 1; }
+}

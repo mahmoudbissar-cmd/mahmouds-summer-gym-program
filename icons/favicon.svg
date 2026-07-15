@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="V-Taper">
+  <rect width="512" height="512" rx="112" fill="#101113"/>
+  <!-- V-taper silhouette: broad shoulders tapering to waist -->
+  <path d="M256 132
+           L360 168
+           L322 300
+           Q300 356 256 372
+           Q212 356 190 300
+           L152 168 Z"
+        fill="none" stroke="#FF5646" stroke-width="26" stroke-linejoin="round"/>
+  <circle cx="256" cy="118" r="30" fill="#FF5646"/>
+</svg>

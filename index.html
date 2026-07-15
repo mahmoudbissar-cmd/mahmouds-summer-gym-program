@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+  <title>V-Taper Program — 5-Day Hypertrophy Training</title>
+  <meta name="description" content="A 5-day hypertrophy training program built for a lean, aesthetic V-taper physique. Installable, works offline, no accounts, no tracking." />
+  <meta name="author" content="V-Taper Program" />
+  <meta name="color-scheme" content="light dark" />
+
+  <!-- Theme colour follows the OS light/dark preference -->
+  <meta name="theme-color" content="#F6F5F1" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0E0F11" media="(prefers-color-scheme: dark)" />
+
+  <!-- Open Graph / social sharing -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="V-Taper Program" />
+  <meta property="og:title" content="V-Taper Program — 5-Day Hypertrophy Training" />
+  <meta property="og:description" content="A 5-day hypertrophy training program built for a lean, aesthetic V-taper physique. Installable and works offline." />
+  <meta property="og:image" content="icons/icon-512.png" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="V-Taper Program" />
+  <meta name="twitter:description" content="A 5-day hypertrophy training program for a lean, aesthetic V-taper physique." />
+  <meta name="twitter:image" content="icons/icon-512.png" />
+
+  <!-- iOS / Android PWA -->
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="V-Taper" />
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" type="image/svg+xml" href="icons/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="64x64" href="icons/favicon-64.png" />
+
+  <!--
+    Set the theme BEFORE first paint to avoid a flash of the wrong colour,
+    and flag that JS is running so scroll-reveal only hides content it can
+    actually reveal again.
+  -->
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("vtaper-theme");
+        if (!t) {
+          t = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        }
+        document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {}
+      document.documentElement.classList.add("js");
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
+</head>
+<body>
+  <a class="skip-link" href="#push">Skip to program</a>
+
+  <div class="wrap">
+    <header class="hero">
+      <div class="hero-top">
+        <p class="kicker" id="kicker"></p>
+        <button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle dark mode" aria-pressed="false">
+          <span class="theme-icon" aria-hidden="true"></span>
+        </button>
+      </div>
+      <h1>Build the<br />V-Taper<span class="dot">.</span></h1>
+      <p class="hero-sub" id="tagline"></p>
+    </header>
+  </div>
+
+  <nav class="daynav" aria-label="Jump to day">
+    <div class="navrow" id="navrow"></div>
+  </nav>
+
+  <main class="wrap" id="app">
+    <noscript>
+      <p class="noscript-msg">
+        This training program needs JavaScript enabled to display. Please turn on
+        JavaScript in your browser settings, then reload the page.
+      </p>
+    </noscript>
+  </main>
+
+  <div id="installBanner" class="install-banner" role="dialog" aria-live="polite" aria-label="Install this app" hidden>
+    <p><b>Add to Home Screen</b> for a one-tap app that works offline.</p>
+    <button id="installBtn" type="button">How</button>
+    <button id="installClose" type="button" aria-label="Dismiss">✕</button>
+  </div>
+
+  <script src="data.js" defer></script>
+  <script src="script.js" defer></script>
+</body>
+</html>

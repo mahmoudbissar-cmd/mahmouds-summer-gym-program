@@ -1,0 +1,12 @@
+# OS cruft
+.DS_Store
+Thumbs.db
+
+# Original delivery bundle — kept locally, excluded from the deployed site
+/files/
+
+# Editor / tooling
+.vscode/
+.idea/
+.claude/
+*.log
