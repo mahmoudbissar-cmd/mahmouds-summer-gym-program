@@ -1,12 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="V-Taper">
+  <!-- Rounded app tile -->
   <rect width="512" height="512" rx="112" fill="#101113"/>
-  <!-- V-taper silhouette: broad shoulders tapering to waist -->
-  <path d="M256 132
-           L360 168
-           L322 300
-           Q300 356 256 372
-           Q212 356 190 300
-           L152 168 Z"
-        fill="none" stroke="#FF5646" stroke-width="26" stroke-linejoin="round"/>
-  <circle cx="256" cy="118" r="30" fill="#FF5646"/>
+  <!-- Barbell: bar + two plates (chalk) -->
+  <g fill="#F6F5F1">
+    <rect x="168" y="164" width="176" height="24" rx="12"/>
+    <rect x="146" y="144" width="28" height="64" rx="9"/>
+    <rect x="338" y="144" width="28" height="64" rx="9"/>
+  </g>
+  <!-- V-taper: broad shoulders under the bar, tapering to the waist -->
+  <path d="M172 224 L256 366 L340 224"
+        fill="none" stroke="#FF5646" stroke-width="36"
+        stroke-linecap="round" stroke-linejoin="round"/>
 </svg>

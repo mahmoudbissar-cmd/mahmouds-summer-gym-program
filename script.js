@@ -54,7 +54,8 @@
 
       row.appendChild(el("span", "exname", ex.name + tag));
       row.appendChild(el("span", "scheme", `${ex.scheme}<small>${ex.rest}</small>`));
-      row.appendChild(el("span", "exnote", ex.note));
+      const rirPill = ex.rir ? `<span class="rir">${ex.rir} RIR</span> ` : "";
+      row.appendChild(el("span", "exnote", rirPill + ex.note));
       card.appendChild(row);
     });
     sec.appendChild(card);
